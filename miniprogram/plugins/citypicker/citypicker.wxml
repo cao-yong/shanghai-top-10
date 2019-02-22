@@ -1,0 +1,71 @@
+<!--citypicker.wxml-->
+<template name="citypicker">
+  <view class=" g-city-sct-container g_city_view">
+    <view id="g_city_sec_header" class="section">
+    <view class="search-view">
+      <input type="text" bindinput="bindKeyInput" placeholder="{{placeholder || '请输入 (如: 上海/shanghai/sh/sha)'}}" 
+              placeholder-style="" class="citypicker-search" placeholder-class="input-placeholder"/>
+              </view>
+    </view>
+    <scroll-view scroll-y="true" scroll-into-view="{{toView}}" class="g-city-sct-bd city-list">
+      <view class="bgw {{onscroll ? '' : 'city_hide'}}">
+        <view id="当前_actTitle" class="bdc {{(onscroll && hasCur) ? '' : 'city_hide'}}">
+          <view class="u-city-sct-cur-hd">当前定位城市</view>
+          <view class="m-city-scr-cur city_pr40" data-render-id="CURR_div">
+              <view  id="local" class="m-cur-city" bindtap="selectCity">
+                  <view data-name="{{currCity.name}}" class="local" data-id="{{currCity.id}}" data-pinyin="{{currCity.pinyin}}" data-code="{{currCity.code}}">{{currCity.name}}</view>
+              </view>
+          </view>
+      </view>
+      <view id="历史_actTitle" class="bdc {{(onscroll && hasHist) ? '' : 'city_hide'}}">
+          <view class="u-city-sct-hty-hd">历史选城市</view>
+          <view class="m-city-scr-hty city_pr40" data-render-id="HIST_div">
+              <view class="m-hty-city" wx:for-items="{{histList}}" wx:for-item="hist" wx:for-index="index" bindtap="selectCity">
+                  <view data-name="{{hist.name}}" data-id="{{hist.id}}" data-pinyin="{{hist.pinyin}}" data-code="{{hist.code}}" data-index="index">{{hist.name}}</view>
+              </view>
+          </view>
+      </view>
+      <view id="热门_actTitle" class="bdc {{(onscroll && hasHot) ? '' : 'city_hide'}}">
+          <view class="u-city-sct-hot-hd">热门景点城市</view>
+          <view class="m-city-scr-hot city_pr40" data-render-id="HOT_div">
+              <view class="m-hot-city" wx:for-items="{{hotList}}" wx:for-item="hot" wx:for-index="index" bindtap="selectCity">
+                  <view data-name="{{hot.destName}}" data-id="{{hot.destId}}" data-pinyin="{{hot.pinyin}}" data-code="{{hot.shortPinyin}}" data-index="index">{{hot.name}}</view>
+              </view>
+          </view>
+      </view>
+      <view wx:for-items="{{cityTitleList}}" wx:for-item="title" wx:for-index="outerIndex" 
+            id="{{title}}_actTitle" data-key="{{title}}" class="{{onscroll ? '' : 'city_hide'}}">
+        <view data-title="{{title}}" data-index="{{outerIndex}}" class="sc-letter-list sc-letter-list-open {{cityTitleClassObj[title]}}">
+          <text class="sc-letter-anchor">{{title}}</text>
+        </view>
+        <view id="{{title}}_actTitle_UL" class="m-city-list {{cityTitleClassObj[title]}}" bindtap="selectCity">
+          <view wx:for-items="{{cityList[outerIndex]}}" wx:for-item="city" wx:for-index="innerIndex"
+                data-name="{{city.name}}" data-id="{{city.destId}}" data-code="{{city.code}}" 
+                data-pinyin="{{city.pinyin}}" data-index="{{innerIndex}}" data-render-id="{{title}}_actTitle_LI_{{city.id}}"
+                class="m-city-list-li">
+            {{city.name}}
+          </view>
+        </view>
+      </view>
+      </view>
+      
+      <view class="{{!onscroll ? '' : 'city_hide'}}" bindtap="selectCity">
+        <view wx:for-items="{{citySearchList}}" wx:for-item="city"
+              data-name="{{city.name}}" data-id="{{city.destId}}" data-code="{{city.code}}" 
+              data-pinyin="{{city.pinyin}}" data-index="{{innerIndex}}" data-render-id="{{title}}_actTitle_LI_{{city.id}}"
+              class="m-city-list-li m-city-list-search-li">
+          {{city.name}}
+        </view>
+      </view>
+    </scroll-view>
+    <view class="g-letter-list {{onscroll ? '' : 'city_hide'}}">
+      <view class="g-letter-list-li">
+        <text class="g-letter-list-li-a" wx:for-items="{{cityAnchorList}}" wx:for-item="title" data-title="{{title}}"
+              bindtouchend="anchorTouchend" >{{title}}</text>
+      </view>
+    </view>
+    <view id="letterTip" class="{{letterTipClass}}">
+      <text id="letterTip_word">{{tip}}</text>
+    </view>
+  </view>
+</template>

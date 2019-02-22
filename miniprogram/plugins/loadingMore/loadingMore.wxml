@@ -1,0 +1,8 @@
+<template name = "loadingMore">
+    <view class="load_more" hidden="{{pageNo==1||!hasNextPage||!hasNextPage || isInit}}">
+        正在加载更多数据...
+    </view>
+    <view class="load_done" hidden="{{pageNo==2||hasNextPage || pageNoTravel==2 ||hasNextPage1 || isInit}}">
+      <text class="load_done_text">—— 亲，拉到最底啦～ ——</text>
+    </view>
+</template>

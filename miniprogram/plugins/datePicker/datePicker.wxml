@@ -1,0 +1,27 @@
+<!--plugins/datePicker/datePicker.wxml-->
+<view class='date-picker'>
+  <view class='week'>
+    <view class='w colorF80'>日</view>
+    <view class='w'>一</view>
+    <view class='w'>二</view>
+    <view class='w'>三</view>
+    <view class='w'>四</view>
+    <view class='w'>五</view>
+    <view class='w colorF80'>六</view>
+  </view>
+  <view class='calendar-container'>
+    <view wx:for="{{calendar}}" class='year-month-day'  wx:for-item="ymd" wx:for-index="k" wx:key="k">
+      <view class='year-month'>{{ymd.year+'年'+ymd.month+'月'}}</view>
+      <view class='day-container'>
+        <view class='day-r' wx:for="{{ymd.day}}" wx:for-item="rDay" wx:for-index="i" wx:key="i">
+            <view class="day {{(day==0)?'opacity0':'opacity1'}} {{day.notUse?'notUse':''}} {{day.flg?'selected':''}}" wx:for="{{rDay}}"
+            wx:for-item="day" wx:for-index="j" wx:key="j" data-k="{{k}}" data-i="{{i}}" data-j="{{j}}" bind:tap='selectDate'>
+              {{day.name || day.num}}
+              <text class='selected-tag' wx:if="day.flg">{{selectedTag}}</text>
+              <text class="vacation-tag {{day.flg?'selected':''}}" wx:if="{{day.vctflag}}">{{day.vctflag}}</text>
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

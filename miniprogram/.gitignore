@@ -1,0 +1,6 @@
+npm-debug.log
+*.log
+.vscode
+.idea
+.nosync
+.history

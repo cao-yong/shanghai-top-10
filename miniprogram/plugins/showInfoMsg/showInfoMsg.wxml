@@ -1,0 +1,5 @@
+<template name = "showInfoMsg">
+    <view class="info-wrap" hidden="{{showInfoFlag}}">
+        <view class="info-msg">{{msg}}</view>
+    </view>
+</template>  

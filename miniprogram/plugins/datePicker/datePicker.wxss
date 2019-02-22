@@ -1,0 +1,94 @@
+/* plugins/datePicker/datePicker.wxss */
+.date-picker {
+  padding-top: 66rpx;
+}
+.week {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  height: 66rpx;
+  background: #F4F4F7;
+  font-size: 26rpx;
+  color: #666666;
+  text-align: center;
+  line-height: 66rpx;
+}
+.week .w {
+  flex: 1;
+}
+
+.colorF80 {
+  color: #FF8800;
+}
+
+.year-month-day {
+  border-bottom: 2rpx solid #F4F4F7;
+  padding-bottom: 20rpx;
+}
+
+.year-month {
+  width: 100%;
+  height: 80rpx;
+  font-size: 14px;
+  line-height: 80rpx;
+  color: #333333;
+  text-align: center;
+  font-weight: 600;
+}
+.day-r {
+  display: flex;
+}
+.day {
+  position: relative;
+  flex: 1;
+  height: 108rpx;
+  font-size: 16px;
+  color: #333333;
+  text-align: center;
+  line-height: 108rpx;
+}
+.opacity0 {
+  opacity: 0;
+}
+
+.opacity1 {
+  opacity: 1;
+}
+.notUse {
+  color: #CCCCCC;
+}
+.selected {
+  background-image: linear-gradient(-90deg, #FF8800 0%, #FFBD46 100%);
+  border-radius: 3px;
+  color: #fff;
+}
+
+.selected-tag {
+  position: absolute;
+  bottom: 10rpx;
+  left: 0;
+  width: 100%;
+  font-size: 9px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 9px;
+}
+.vacation-tag {
+  position: absolute;
+  top: 6rpx;
+  left: 6rpx;
+  width: 24rpx;
+  height: 22rpx;
+  border: 2rpx solid #FFCE84;
+  border-radius: 2px;
+  font-size: 16rpx;
+  color: #FF8800;
+  text-align: center;
+  line-height: 22rpx;
+}
+.selected .vacation-tag {
+  color: #fff!important;
+  border: 2rpx solid #fff!important;
+}
