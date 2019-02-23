@@ -71,16 +71,6 @@ Page({
     })
 
   },
-  loadList: function() {
-    if (this.data.hasNextPage) {
-      this.getDestByCity();
-    }
-  },
-  onReachBottom: function() {
-    if (this.data.hasNextPage) {
-      this.getDestByCity();
-    }
-  },
   //设置分享
   onShareAppMessage: (res) => {
     return {
