@@ -14,25 +14,28 @@
     </swiper>
   </view>
 
-  <!--跳景区号页面-->
-  <view class='fontSize22 corlor333 lineHeight30 marginTop20 justifyContent pdb-20'>
-    <view class='fontWeight '>精选景区</view>
+  <view class='section hot'>
+    <section-title class="fontSize16 corlor333 oneLine fontWeight" color="#fcc000" title="热门必去">热门必去</section-title>
+    <view class='typeList'>
+      <view class="{{curHotTypeIndex===index?'selected':''}}" wx:for="{{hotType}}" wx:key="{{index}}" bindtap='selectHotType' data-index='{{index}}'>
+        {{item}}
+      </view>
+    </view>
   </view>
 
-  <!-- <scroll-view class='scrollList' style="height:{{scrollHeight}}px" scroll-y="true" bindscrolltolower="loadList"> -->
-  <view class='marginTop20 overHidden'>
-    <view class='scenic' wx:if="{{spotList.length>0}}" wx:for="{{spotList}}" wx:for-item="item" data-id="{{item.scenicNo}}" bindtap='goSpot'>
-      <image src='{{item.fileUrl}}'></image>
-      <view class='fontSize16 corlor333 oneLine fontWeight pad-rl-10'>{{item.scenicName}}</view>
-      <view class='fontSize12 pad-trl-10 verticalOne'>
-        <text class='scenicQuery' wx:if="{{item.scenicLevel}}">{{item.scenicLevel}}A景区</text>
-        <text class='scenicQuery' wx:if="{{item.scenicTheme}}" wx:for="{{item.scenicTheme}}" wx:for-item="citem">{{citem}}</text>
+  <view class='marginTop10'>
+    <view class='scenic' wx:if="{{spotList.length>0}}" wx:for="{{spotList}}" wx:for-item="item" data-id="{{item.id}}" bindtap='goSpot'>
+      <view class='imgBox'>
+        <image src='{{item.imgUrl}}' />
+        <view class='type'>排名：{{item.sort}}</view>
+        <view class='region'>{{item.regionName}}</view>
       </view>
+      <view class='fontSize16 corlor333 oneLine fontWeight pad-rl-10'>{{item.siteName}}</view>
+
       <view class='fontSize12 pad-trl-10'>
-        <text class='corlor333 pad-r-10' wx:if="{{item.distance}}">{{item.distance}}公里</text>
-        <text class='corlor999'>{{item.scenicArea}}</text>
+        <text class='corlor333 pad-r-10' wx:if="{{item.distance}}">{{item.star}}景区</text>
+        <text class='address'>地址：{{item.address}}</text>
       </view>
-      <view class='oneLine corlor999 fontSize12 pad-trl-10'>{{item.introduction}}</view>
     </view>
   </view>
   <!-- </scroll-view> -->

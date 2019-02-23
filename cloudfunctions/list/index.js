@@ -18,11 +18,15 @@ const db = cloud.database()
 exports.main = (event, context) => {
   console.log(event)
   console.log(context)
-  console.log('get list start.')
+  let categoryType = 1
+  if (event.categoryType){
+    categoryType = event.categoryType
+  }
+  console.log('get list start: ', categoryType)
   // 查询当前用户所有的 counters
-  return db.collection('shanghai-top').where({
-    categoryName: '景点'
-  }).get({
+  return db.collection('top-site').where({
+    categoryType: categoryType
+  }).limit(14).get({
     success: res => {
       this.setData({
         queryResult: JSON.stringify(res.data, null, 2)

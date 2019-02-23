@@ -27,131 +27,64 @@ Page({
     limit: 10,
     pageNo: 1,
     spotList: [],
-    noRecommendScen: false,
     autoLocation: true,
     countryFlag: false,
     countryName: '',
     hasNextPage: true,
     contanerShow: false,
-    banner: ["../../images/banner.png"]
+    banner: ["../../images/banner.png"],
+    hotType: ['景点', '商圈', '小吃街', '酒店', '夜店'],
+    curHotTypeIndex: 0,
   },
-  onLoad: function () { },
+  onLoad: function() {},
   // 生命周期函数--监听页面显示
-  onShow: function () {
+  onShow: function() {
     const _this = this;
-    _this.setData({
-      noRecommendScen: false
-    });
+    _this.getDestByCity(1);
 
   },
-  //
-  gitCityInfo: function (cityName) {
+  //选择热门类型事件
+  selectHotType(e) {
     const _this = this;
-    initLoading.showLoading();
-    requestWrap.request({
-      url: requestWrap.getUrl().getDestCity,
-      method: 'GET',
-      data: {
-        cityName: cityName
-      },
-      success: function (res) {
-        if (res.data.code == '200') {
-          _this.setData({
-            cityData: res.data.data[0],
-            destId: res.data.data[0].destId,
-            now_destId: res.data.data[0].destId,
-          })
-          wx.setStorageSync('cityData', res.data.data[0])
-          _this.getDestByCity();
-        }
-        initLoading.hideLoading();
-      },
-      fail: function (err) {
-
-      }
-    });
-  },
-  getDestByCity: function () {
-    const _this = this;
-    let spotList = _this.data.spotList;
-    let pageNo = _this.data.pageNo;
-    let hasNextPage = _this.data.hasNextPage;
-    initLoading.showLoading();
-    if (hasNextPage) {
-      requestWrap.request({
-        url: requestWrap.getUrl().getDestByCity,
-        method: 'GET',
-        data: {
-          longitude: _this.data.longitude,
-          latitude: _this.data.latitude,
-          destId: _this.data.now_destId,
-          limit: 10,
-          pageNo: _this.data.pageNo,
-          autoLocation: _this.data.autoLocation
-        },
-        success: function (res) {
-          if (res.data.code == '200') {
-            if (res.data.msg == 'country') {
-              _this.setData({
-                countryFlag: true,
-                countryName: '全国',
-                contanerShow: true
-              })
-            }
-            if (res.data.data && res.data.data.list) {
-              _this.setData({
-                spotList: spotList.concat(res.data.data.list),
-                hasNextPage: res.data.data.hasNextPage,
-                pageNo: pageNo + 1,
-                contanerShow: true
-              })
-            }
-          }
-
-          if (_this.data.spotList.length === 0) {
-            _this.setData({
-              noRecommendScen: true
-            });
-          } else {
-            _this.setData({
-              noRecommendScen: false
-            });
-          }
-
-          initLoading.hideLoading();
-        },
-        fail: function (err) {
-          initLoading.hideLoading();
-          console.log(err)
-        }
-      });
-    }
-
-  },
-  loadList: function () {
-    if (this.data.hasNextPage) {
-      this.getDestByCity();
-    }
-  },
-  onReachBottom: function () {
-    if (this.data.hasNextPage) {
-      this.getDestByCity();
-    }
-  },
-  cityList: function () {
-    wx.navigateTo({
-      url: '../pickCity/pickCity'
-    })
-  },
-  goSpot: function (e) {
-    wx.navigateTo({
-      url: '../scenicNum/scenicNum?scenicNo=' + e.currentTarget.dataset.id,
-    })
-  },
-  //底部tab点击事件
-  footerSelect(e) {
+    let index = e.target.dataset.index
     this.setData({
-      selectedItem: e.currentTarget.dataset.index
-    });
+      curHotTypeIndex: index
+    })
+    _this.getDestByCity(index + 1)
+  },
+  getDestByCity: function (categoryType) {
+    console.log("getDestByCity start")
+    const _this = this;
+    // 调用云函数
+    wx.cloud.callFunction({
+      name: 'list',
+      data: { categoryType: categoryType},
+      success: res => {
+        console.log('[云函数] [list] user openid: ', res)
+        _this.setData({
+          spotList: res.result.data
+        })
+      },
+      fail: err => {
+        console.error('[云函数] [list] 调用失败', err)
+      }
+    })
+
+  },
+  loadList: function() {
+    if (this.data.hasNextPage) {
+      this.getDestByCity();
+    }
+  },
+  onReachBottom: function() {
+    if (this.data.hasNextPage) {
+      this.getDestByCity();
+    }
+  },
+  //设置分享
+  onShareAppMessage: (res) => {
+    return {
+      path: '/pages/index/index',
+    }
   }
 })
