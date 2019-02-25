@@ -33,4 +33,15 @@
       <view class="cot tips {{ tipFlage? 'tip' : 'tipup'  }}" data-jh="jh" bindtap="moreTips">{{ scenicDataList.tips }}</view>
     </view>
   </view>
+
+  <!--拨打电话-->
+  <view class='pop' wx:if="{{popFlag}}">
+        <view class='popMsg'>
+            <view class='butSmg'>{{phoneNum}}</view>
+            <view class='butSure'>
+                <view class='butSure_N' id="N" bindtap="phoneCall">取消</view>
+                <view class='butSure_Y' id="Y" bindtap="phoneCall">呼叫</view>
+            </view>
+        </view>
+    </view>
 </view>
