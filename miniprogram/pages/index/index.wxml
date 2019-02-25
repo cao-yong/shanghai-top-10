@@ -24,7 +24,7 @@
   </view>
 
   <view class='marginTop10'>
-    <view class='scenic' wx:if="{{spotList.length>0}}" wx:for="{{spotList}}" wx:for-item="item" data-id="{{item.id}}" bindtap='goSpot'>
+    <view class='scenic' wx:if="{{spotList.length>0}}" wx:for="{{spotList}}" wx:for-item="item" data-id="{{item.siteId}}" bindtap='goDetail'>
       <view class='imgBox'>
         <image src='{{item.imgUrl}}' />
         <view class='type'>排名：{{item.sort}}</view>
@@ -33,7 +33,6 @@
       <view class='fontSize16 corlor333 oneLine fontWeight pad-rl-10'>{{item.siteName}}</view>
 
       <view class='fontSize12 pad-trl-10'>
-        <text class='corlor333 pad-r-10' wx:if="{{item.distance}}">{{item.star}}景区</text>
         <text class='address'>地址：{{item.address}}</text>
       </view>
     </view>

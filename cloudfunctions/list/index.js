@@ -22,11 +22,11 @@ exports.main = (event, context) => {
   if (event.categoryType){
     categoryType = event.categoryType
   }
-  console.log('get list start: ', categoryType)
+  console.log('get list start categoryType: ', categoryType)
   // 查询当前用户所有的 counters
   return db.collection('top-site').where({
     categoryType: categoryType
-  }).limit(14).get({
+  }).limit(10).get({
     success: res => {
       this.setData({
         queryResult: JSON.stringify(res.data, null, 2)

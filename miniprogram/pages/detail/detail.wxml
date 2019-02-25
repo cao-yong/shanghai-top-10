@@ -1,0 +1,36 @@
+<view class="container {{toastRoutesList ? 'no-scroll' : ''}}">
+  <view class="banner" wx:if="{{allNoneFlage}}">
+    <image src="{{ scenicDataList.imgUrl }}" bindtap="imgList" data-id="{{ scenicDataList.destId }}"></image>
+  </view>
+  <view class="banner" wx:if="{{!allNoneFlage}}">
+    <image src="{{ scenicDataList.imgUrl }}"></image>
+  </view>
+  <view class="scenic-detail">
+    <view class="name">{{ scenicDataList.siteName }}</view>
+    <view class="other">
+      <view wx:if="{{fromType!='my'}}" class="bottom-other">
+        <view wx:for="{{ otherList }}" wx:key="key" class="{{ item.class }} {{ item.select ? 'select' : '' }}">
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="msg">
+    <view class="title">基本信息</view>
+    <view class="list" hidden="{{ !item.cot }}" wx:for="{{ essentialMsg }}" wx:key="key">
+      <view class="title">{{ item.name }}</view>
+      <view class="cot  {{ item.type == 'address' ? 'address' : ''  }}{{ item.type == 'phone' || item.type == 'url' ? 'blue' : '' }} {{ item.down&&item.type!='address' ? 'down' : '' }} {{ !item.down && item.type!='address'&& item.height > 40  ? 'up' : '' }}"
+        data-index="{{ index }}" bindtap="moreContent">
+        <text selectable="true">{{ item.cot }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="msg" wx:if="{{ scenicDataList.tips }}">
+    <view class="title">小贴士</view>
+    <view class="list time">
+      <view class="cot" wx:if="{{scenicDataList.playTime}}">
+        <text>建议游玩时间</text>：{{scenicDataList.playTime}}。
+      </view>
+      <view class="cot tips {{ tipFlage? 'tip' : 'tipup'  }}" data-jh="jh" bindtap="moreTips">{{ scenicDataList.tips }}</view>
+    </view>
+  </view>
+</view>

@@ -3,7 +3,6 @@ const app = getApp();
 
 Page({
   data: {
-    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
     indicatorDots: true,
     vertical: false,
     imgUrl: app.globalData.imgUrl,
@@ -16,22 +15,7 @@ Page({
     duration: 500,
     previousMargin: 0,
     nextMargin: 0,
-    selectedItem: 1,
-    latitude: '',
-    longitude: '',
-    cityData: {},
-    cityName: '',
-    now_cityName: '',
-    destId: '',
-    now_destId: '',
-    limit: 10,
-    pageNo: 1,
     spotList: [],
-    autoLocation: true,
-    countryFlag: false,
-    countryName: '',
-    hasNextPage: true,
-    contanerShow: false,
     banner: ["../../images/banner.png"],
     hotType: ['景点', '商圈', '小吃街', '酒店', '夜店'],
     curHotTypeIndex: 0,
@@ -40,7 +24,7 @@ Page({
   // 生命周期函数--监听页面显示
   onShow: function() {
     const _this = this;
-    _this.getDestByCity(1);
+    _this.getList(1);
 
   },
   //选择热门类型事件
@@ -50,10 +34,10 @@ Page({
     this.setData({
       curHotTypeIndex: index
     })
-    _this.getDestByCity(index + 1)
+    _this.getList(index + 1)
   },
-  getDestByCity: function (categoryType) {
-    console.log("getDestByCity start")
+  getList: function (categoryType) {
+    console.log("getList start")
     const _this = this;
     // 调用云函数
     wx.cloud.callFunction({
@@ -70,6 +54,12 @@ Page({
       }
     })
 
+  },
+  //去详情页
+  goDetail: function (e) {
+    wx.navigateTo({
+      url: '../detail/detail?siteId=' + e.currentTarget.dataset.id,
+    })
   },
   //设置分享
   onShareAppMessage: (res) => {
