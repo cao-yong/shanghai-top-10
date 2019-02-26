@@ -36,13 +36,13 @@ Page({
     hasNextPage: true,
     essentialMsg: [{
       type: "situation",
-      name: "景点概况",
+      name: "概况信息",
       cot: "",
       down: false,
       height: ""
     }, {
       type: "address",
-      name: "景点地址",
+      name: "地址信息",
       cot: "",
       down: false,
       height: ""

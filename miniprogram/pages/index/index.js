@@ -1,4 +1,4 @@
-//home.js
+//index.js
 const app = getApp();
 
 Page({
@@ -18,13 +18,13 @@ Page({
     spotList: [],
     banner: ["../../images/banner.png"],
     hotType: ['景点', '商圈', '小吃街', '酒店', '夜店'],
-    curHotTypeIndex: 0,
+    curHotTypeIndex: 0
   },
   onLoad: function() {},
   // 生命周期函数--监听页面显示
   onShow: function() {
     const _this = this;
-    _this.getList(1);
+    _this.getList(_this.data.curHotTypeIndex + 1);
 
   },
   //选择热门类型事件
@@ -36,13 +36,15 @@ Page({
     })
     _this.getList(index + 1)
   },
-  getList: function (categoryType) {
+  getList: function(categoryType) {
     console.log("getList start")
     const _this = this;
     // 调用云函数
     wx.cloud.callFunction({
       name: 'list',
-      data: { categoryType: categoryType},
+      data: {
+        categoryType: categoryType
+      },
       success: res => {
         console.log('[云函数] [list] user openid: ', res)
         _this.setData({
@@ -56,7 +58,7 @@ Page({
 
   },
   //去详情页
-  goDetail: function (e) {
+  goDetail: function(e) {
     wx.navigateTo({
       url: '../detail/detail?siteId=' + e.currentTarget.dataset.id,
     })
