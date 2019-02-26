@@ -1,4 +1,6 @@
 //index.js
+var initLoading = require('../../sdk/methodUtil.js');
+
 const app = getApp();
 
 Page({
@@ -37,6 +39,7 @@ Page({
     _this.getList(index + 1)
   },
   getList: function(categoryType) {
+    initLoading.showLoading();
     console.log("getList start")
     const _this = this;
     // 调用云函数
@@ -50,6 +53,7 @@ Page({
         _this.setData({
           spotList: res.result.data
         })
+        initLoading.hideLoading();
       },
       fail: err => {
         console.error('[云函数] [list] 调用失败', err)

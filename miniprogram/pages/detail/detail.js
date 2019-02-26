@@ -1,5 +1,5 @@
 var QQMapWX = require('../../sdk/qqmap-wx-jssdk.min.js');
-
+var initLoading = require('../../sdk/methodUtil.js');
 function checkPhone(text) {
   return text.match(/((((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\d{8})|((\d3,4|\d{3,4}-|\s)?\d{7,14}))?/g);
 }
@@ -93,6 +93,7 @@ Page({
     this.SystemInfoSync();
   },
   scenicDetailData: function(siteId) {
+    initLoading.showLoading();
     var _this = this;
     wx.cloud.callFunction({
       name: 'detail',
@@ -117,6 +118,7 @@ Page({
         if (res.result.data[0].tips) {
           _this.contentHeight1();
         }
+        initLoading.hideLoading();
       },
       fail: function(err) {
 
